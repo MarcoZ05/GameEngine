@@ -16,7 +16,7 @@ const player = new GameObject(
   150,
   5,
   '../img/player.png',
-  1,
+  new Position(0, 9.81),
   false
 )
 

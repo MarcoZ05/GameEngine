@@ -8,7 +8,7 @@ export default class GameObject {
   height: number
   zIndex: number
   image: HTMLImageElement
-  gravityEffected: number
+  gravityEffected: Position
   gravityFrames: number = 0
   colliding: boolean
   id: number = ID++
@@ -18,7 +18,7 @@ export default class GameObject {
     height: number,
     zIndex: number,
     imageSrc: string,
-    gravityEffected: number,
+    gravityEffected: Position,
     colliding: boolean
   ) {
     this.position = position
@@ -37,12 +37,20 @@ export default class GameObject {
   }
 
   public update () {
-    if (this.gravityEffected !== 0 /* && boxcolider.bottom */) {
+    if (true /* && boxcolider.bottom */) {
       this.gravityFrames++
-      this.move({
-        x: 0,
-        y: Math.round(this.gravityEffected * this.gravityFrames)
-      })
+
+      if (this.gravityEffected.x !== 0)
+        this.move({
+          x: 0,
+          y: Math.round(this.gravityEffected.x * this.gravityFrames)
+        })
+
+      if (this.gravityEffected.y !== 0)
+        this.move({
+          x: Math.round(this.gravityEffected.y * this.gravityFrames),
+          y: 0
+        })
     } else {
       this.gravityFrames = 0
     }
