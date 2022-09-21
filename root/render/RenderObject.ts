@@ -1,5 +1,5 @@
-import GameObject from './GameObject.js'
-import Position from './Position.js'
+import GameObject from '../GameObject.js'
+import Position from '../Position.js'
 
 export default class RenderObject {
   position: Position

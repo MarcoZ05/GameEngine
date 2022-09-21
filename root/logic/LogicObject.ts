@@ -5,11 +5,14 @@ export default class LogicObject {
   position: Position
   width: number
   height: number
-  gravityEffected: number
+  gravityEffected: Position
   gravityFrames: number = 0
   colliding: boolean
-  update () {}
-  move (deltaPosition: Position) {}
+  update (otherGameObjects: GameObject[] | LogicObject[]) {}
+  move (
+    deltaPosition: Position,
+    otherGameObjects: GameObject[] | LogicObject[]
+  ) {}
 
   constructor (gameObject: GameObject) {
     this.position = gameObject.position

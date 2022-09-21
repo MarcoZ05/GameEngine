@@ -1,3 +1,5 @@
+import CollisionDetector from './Collision/CollisionDetector.js'
+import LogicObject from './logic/LogicObject.js'
 import Position from './Position.js'
 
 let ID = 0
@@ -31,26 +33,40 @@ export default class GameObject {
     this.colliding = colliding
   }
 
-  public move (deltaPosition: Position) {
-    this.position.x += deltaPosition.x
-    this.position.y += deltaPosition.y
+  public move (
+    deltaPosition: Position,
+    otherGameObjects: GameObject[] | LogicObject[]
+  ) {
+    let boxColliders = CollisionDetector(this, otherGameObjects)
+
+    for (
+      let i = 0;
+      i !== deltaPosition.x && deltaPosition.x > 0
+        ? boxColliders.right.length === 0
+        : boxColliders.left.length === 0;
+      i += deltaPosition.x > 0 ? 1 : -1
+    ) {
+      this.position.x += deltaPosition.x > 0 ? 1 : -1
+    }
   }
 
-  public update () {
-    if (true /* && boxcolider.bottom */) {
+  public update (otherGameObjects: GameObject[] | LogicObject[]) {
+    let boxColliders = CollisionDetector(this, otherGameObjects)
+
+    if (boxColliders.bottom.length === 0) {
       this.gravityFrames++
 
-      if (this.gravityEffected.x !== 0)
-        this.move({
-          x: 0,
-          y: Math.round(this.gravityEffected.x * this.gravityFrames)
-        })
-
       if (this.gravityEffected.y !== 0)
-        this.move({
-          x: Math.round(this.gravityEffected.y * this.gravityFrames),
-          y: 0
-        })
+        this.move(
+          new Position(0, this.gravityEffected.y * this.gravityFrames * 0.1),
+          []
+        )
+
+      if (this.gravityEffected.x !== 0)
+        this.move(
+          new Position(this.gravityEffected.x * this.gravityFrames * 0.1, 0),
+          []
+        )
     } else {
       this.gravityFrames = 0
     }

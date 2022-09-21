@@ -16,21 +16,29 @@ const player = new GameObject(
   150,
   5,
   '../img/player.png',
-  new Position(0, 9.81),
+  new Position(0, 0),
   false
 )
 
 logic.pushKeyListener(
-  new KeyListener(['w', 'W'], () => player.move({ x: 0, y: -10 }))
+  new KeyListener(['w', 'W'], () =>
+    player.move({ x: 0, y: -10 }, distributer.logic.logicObjects)
+  )
 )
 logic.pushKeyListener(
-  new KeyListener(['a', 'A'], () => player.move({ x: -10, y: 0 }))
+  new KeyListener(['a', 'A'], () =>
+    player.move({ x: -10, y: 0 }, distributer.logic.logicObjects)
+  )
 )
 logic.pushKeyListener(
-  new KeyListener(['s', 'S'], () => player.move({ x: 0, y: 10 }))
+  new KeyListener(['s', 'S'], () =>
+    player.move({ x: 0, y: 10 }, distributer.logic.logicObjects)
+  )
 )
 logic.pushKeyListener(
-  new KeyListener(['d', 'D'], () => player.move({ x: 10, y: 0 }))
+  new KeyListener(['d', 'D'], () =>
+    player.move({ x: 10, y: 0 }, distributer.logic.logicObjects)
+  )
 )
 
 distributer.pushObject(player)
